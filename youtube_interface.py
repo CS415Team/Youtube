@@ -21,7 +21,7 @@ class mainwindow(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
         
         self.frames = {}
-        for Fr in (StatsFrame, SearchFrame):
+        for Fr in (StatsFrame, SearchFrame, SettingsFrame):
             frame_name = Fr.__name__
             frame = Fr(parent=container, controller=self)
             self.frames[frame_name] = frame
@@ -45,12 +45,17 @@ class StatsFrame(tk.Frame):
 
         StatsButton1 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
         SearchButton1 = tk.Button(self, text="Search", command=lambda: controller.show_frame("SearchFrame"))
-        
+        SettingsButton1 = tk.Button(self, text="Settings", command=lambda: controller.show_frame("SettingsFrame"))    
+
+
         StatsButton1.config(height = 1, width = 10)
         StatsButton1.place(x = 1, y = 1)
         
         SearchButton1.config(heigh = 1, width = 10)
         SearchButton1.place(x = 100, y = 1)
+
+        SettingsButton1.config(heigh = 1, width = 10)
+        SettingsButton1.place(x = 200, y = 1)
 
 
 class SearchFrame(tk.Frame):
@@ -63,12 +68,39 @@ class SearchFrame(tk.Frame):
 
         StatsButton2 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
         SearchButton2 = tk.Button(self, text="Search", command=lambda: controller.show_frame("SearchFrame"))
+        SettingsButton2 = tk.Button(self, text="Settings", command=lambda: controller.show_frame("SettingsFrame"))
 
         StatsButton2.config(height = 1, width = 10)
         StatsButton2.place(x = 1, y = 1)
         
         SearchButton2.config(heigh = 1, width = 10)
         SearchButton2.place(x = 100, y = 1)
+
+        SettingsButton2.config(heigh = 1, width = 10)
+        SettingsButton2.place(x = 200, y = 1)
+
+
+class SettingsFrame(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="settings page")
+        label.pack(side="top", fill="x", pady=10)
+
+        StatsButton3 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
+        SearchButton3 = tk.Button(self, text="Search", command=lambda: controller.show_frame("SearchFrame"))
+        SettingsButton3 = tk.Button(self, text="Settings", command=lambda: controller.show_frame("SettingsFrame"))
+
+
+        StatsButton3.config(height = 1, width = 10)
+        StatsButton3.place(x = 1, y = 1)
+        
+        SearchButton3.config(heigh = 1, width = 10)
+        SearchButton3.place(x = 100, y = 1)
+
+        SettingsButton3.config(heigh = 1, width = 10)
+        SettingsButton3.place(x = 200, y = 1)
 
 
 if __name__ == "__main__":
