@@ -1,10 +1,9 @@
 import tkinter as tk
+from pexpect import pxssh
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import *
 import os
-
-
 
 
 class mainwindow(tk.Tk):
@@ -14,7 +13,7 @@ class mainwindow(tk.Tk):
         #window settings
         self.title('Youtube Analyzer')    #set title
         self.geometry("1000x800")         #set the size
-        #self.resizable(0, 0)              #fix the size
+        self.resizable(0, 0)              #fix the size
 
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
@@ -54,9 +53,6 @@ class StatsFrame(tk.Frame):
         SearchButton1.place(x = 100, y = 1)
 
 
-
-
-
 class SearchFrame(tk.Frame):
     
     def __init__(self, parent, controller):
@@ -74,7 +70,6 @@ class SearchFrame(tk.Frame):
         SearchButton2.config(heigh = 1, width = 10)
         SearchButton2.place(x = 100, y = 1)
 
-#mainwindow.mainloop()
 
 if __name__ == "__main__":
     app = mainwindow()
@@ -82,8 +77,13 @@ if __name__ == "__main__":
 
 
 
-#thoughts for organization of the interface
-#Each of the different pieces will be presented in a different window.
-#i.e. if you want to do search, you click on the search tab and then
-#the search features appear on the screen only. 
-#if you want to see the aggrigated statistics, click on the stats tab etc...
+
+#how im thinking of connecting to the databases.
+#hopefully if we get neo4j up and running on aws and is available to ssh into 
+#using pexpect to ssh into
+#send the commands from this app -> pexpect -> aws neo4j instance
+
+#pxssh link https://www.pythonforbeginners.com/code-snippets-source-code/ssh-connection-with-python
+#pexpect link from stackoverflow https://stackoverflow.com/questions/15096667/ssh-and-send-commands-in-tkinter
+#github pexpect https://github.com/pexpect/pexpect
+
