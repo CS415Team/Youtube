@@ -1,4 +1,5 @@
 import tkinter as tk
+import psycopg2
 from pexpect import pxssh
 from tkinter import filedialog
 from tkinter import messagebox
@@ -20,6 +21,9 @@ class mainwindow(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         
+        self.connect_dbs
+
+
         self.frames = {}
         for Fr in (StatsFrame, SearchFrame, SettingsFrame):
             frame_name = Fr.__name__
@@ -33,6 +37,40 @@ class mainwindow(tk.Tk):
     def show_frame(self, frame_name):
         frame = self.frames[frame_name]
         frame.tkraise()
+
+    def connect_dbs():
+        conn = None
+        try:
+            # connect to the rds database
+            print('Connecting to the rds db')
+            conn = psycopg2.connect(
+                host = 'testdb-rmiller1-instance.c9dhbkaqdlyx.us-east-1.rds.amazonaws.com',
+                port = 5432,
+                user = 'rmiller1',
+                password = 'testpassword',
+                database='testdb1rm'
+                )
+            # creating a cursor
+            cur = conn.cursor()
+        
+            # test connection by getting databse version
+            print('rds database version:')
+            cur.execute('SELECT version()')
+ 
+            # display the db version
+            db_version = cur.fetchone()
+            print(db_version)
+       
+           # close the communication with the PostgreSQL
+            #cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
+                print('Database connection closed.')
+ 
+
 
 
 class StatsFrame(tk.Frame):
