@@ -21,7 +21,7 @@ class mainwindow(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
         
-        self.connect_dbs
+#        self.connect_dbs
 
 
         self.frames = {}
@@ -38,37 +38,37 @@ class mainwindow(tk.Tk):
         frame = self.frames[frame_name]
         frame.tkraise()
 
-    def connect_dbs():
-        conn = None
-        try:
+#    def connect_dbs():
+#        conn = None
+#        try:
             # connect to the rds database
-            print('Connecting to the rds db')
-            conn = psycopg2.connect(
-                host = 'testdb-rmiller1-instance.c9dhbkaqdlyx.us-east-1.rds.amazonaws.com',
-                port = 5432,
-                user = 'rmiller1',
-                password = 'testpassword',
-                database='testdb1rm'
-                )
+#            print('Connecting to the rds db')
+#            conn = psycopg2.connect(
+#                host = 'testdb-rmiller1-instance.c9dhbkaqdlyx.us-east-1.rds.amazonaws.com',
+#                port = 5432,
+#                user = 'rmiller1',
+#                password = 'testpassword',
+#                database='testdb1rm'
+#                )
             # creating a cursor
-            cur = conn.cursor()
+#            cur = conn.cursor()
         
             # test connection by getting databse version
-            print('rds database version:')
-            cur.execute('SELECT version()')
+#            print('rds database version:')
+#            cur.execute('SELECT version()')
  
             # display the db version
-            db_version = cur.fetchone()
-            print(db_version)
-       
-           # close the communication with the PostgreSQL
-            #cur.close()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
-        finally:
-            if conn is not None:
-                conn.close()
-                print('Database connection closed.')
+#            db_version = cur.fetchone()
+#            print(db_version)
+#       
+#           # close the communication with the PostgreSQL
+#            #cur.close()
+#        except (Exception, psycopg2.DatabaseError) as error:
+#            print(error)
+#        finally:
+#            if conn is not None:
+#                conn.close()
+#                print('Database connection closed.')
  
 
 
@@ -104,9 +104,48 @@ class SearchFrame(tk.Frame):
         label = tk.Label(self, text="search page")
         label.pack(side="top", fill="x", pady=10)
 
+        #tab buttons
         StatsButton2 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
         SearchButton2 = tk.Button(self, text="Search", command=lambda: controller.show_frame("SearchFrame"))
         SettingsButton2 = tk.Button(self, text="Settings", command=lambda: controller.show_frame("SettingsFrame"))
+        
+
+        #range query label
+        range_query_label = tk.Label(self, text="Range Query")
+        range_query_label.place(x = 75, y = 50)
+
+        #range query input 1
+        range_query_input_1 = tk.Entry(self, width = 4)
+        range_query_input_1.place(x = 50, y = 100)
+
+        range_query_input_1_label = tk.Label(self, text="t1")
+        range_query_input_1_label.place(x = 60, y = 75)
+
+        #range query input 2
+        range_query_input_2 = tk.Entry(self, width = 4)
+        range_query_input_2.place(x = 150, y = 100)
+
+        range_query_input_2_label = tk.Label(self, text="t2")
+        range_query_input_2_label.place(x = 160, y = 75)
+
+
+        #range query category box
+        range_query_category_input = tk.Entry(self, width = 15)
+        range_query_category_input.place(x = 50, y = 170)
+
+        range_query_category_input_label = tk.Label(self, text="Category")
+        range_query_category_input_label.place(x = 80, y = 140)
+
+        #range query output box
+        range_query_output = tk.Text(self,bd = 2, height = 4, width = 20)
+        range_query_output.place(x = 50, y = 240)
+
+        range_query_output_label = tk.Label(self, text="Output")
+        range_query_output_label.place(x = 90, y = 210)
+        
+        #///add scroll bar
+        
+        
 
         StatsButton2.config(height = 1, width = 10)
         StatsButton2.place(x = 1, y = 1)
@@ -116,6 +155,8 @@ class SearchFrame(tk.Frame):
 
         SettingsButton2.config(heigh = 1, width = 10)
         SettingsButton2.place(x = 200, y = 1)
+
+
 
 
 class SettingsFrame(tk.Frame):
@@ -156,4 +197,14 @@ if __name__ == "__main__":
 #pxssh link https://www.pythonforbeginners.com/code-snippets-source-code/ssh-connection-with-python
 #pexpect link from stackoverflow https://stackoverflow.com/questions/15096667/ssh-and-send-commands-in-tkinter
 #github pexpect https://github.com/pexpect/pexpect
+
+
+#todo list
+
+#1. range queries: needs button, inputs for t1 and t2, 
+# as well as input text for category X, and output text box
+#2. top k inputs: needs input for k and a text box display, and button for enter
+#3. output text box for categorized statistics with labels
+#4. output text box for degree distribution with label
+#5. output box for pagerank list with label
 
