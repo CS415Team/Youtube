@@ -106,55 +106,88 @@ class SearchFrame(tk.Frame):
 
         #tab buttons
         StatsButton2 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
+        StatsButton2.config(height = 1, width = 10)
+        StatsButton2.place(x = 1, y = 1)
+       
         SearchButton2 = tk.Button(self, text="Search", command=lambda: controller.show_frame("SearchFrame"))
-        SettingsButton2 = tk.Button(self, text="Settings", command=lambda: controller.show_frame("SettingsFrame"))
+        SearchButton2.config(heigh = 1, width = 10)
+        SearchButton2.place(x = 100, y = 1)
         
+        SettingsButton2 = tk.Button(self, text="Settings", command=lambda: controller.show_frame("SettingsFrame"))
+        SettingsButton2.config(heigh = 1, width = 10)
+        SettingsButton2.place(x = 200, y = 1)
+
+
+        # Range query **************************************************
 
         #range query label
         range_query_label = tk.Label(self, text="Range Query")
         range_query_label.place(x = 75, y = 50)
 
-        #range query input 1
+        #range query input 1 t1
         range_query_input_1 = tk.Entry(self, width = 4)
         range_query_input_1.place(x = 50, y = 100)
 
         range_query_input_1_label = tk.Label(self, text="t1")
         range_query_input_1_label.place(x = 60, y = 75)
 
-        #range query input 2
+        #range query input 2 t2
         range_query_input_2 = tk.Entry(self, width = 4)
         range_query_input_2.place(x = 150, y = 100)
 
         range_query_input_2_label = tk.Label(self, text="t2")
         range_query_input_2_label.place(x = 160, y = 75)
 
+        #range query input 3 x
+        range_query_input_3 = tk.Entry(self, width = 4)
+        range_query_input_3.place(x = 50, y = 160)
+
+        range_query_input_3_label = tk.Label(self, text="x")
+        range_query_input_3_label.place(x = 60, y = 135)
+
+        #range query input 4 y
+        range_query_input_4 = tk.Entry(self, width = 4)
+        range_query_input_4.place(x = 150, y = 160)
+
+        range_query_input_4_label = tk.Label(self, text="y")
+        range_query_input_4_label.place(x = 160, y = 135)
+
 
         #range query category box
         range_query_category_input = tk.Entry(self, width = 15)
-        range_query_category_input.place(x = 50, y = 170)
+        range_query_category_input.place(x = 50, y = 220)
 
         range_query_category_input_label = tk.Label(self, text="Category")
-        range_query_category_input_label.place(x = 80, y = 140)
+        range_query_category_input_label.place(x = 80, y = 190)
 
         #range query output box
         range_query_output = tk.Text(self,bd = 2, height = 4, width = 20)
-        range_query_output.place(x = 50, y = 240)
-
+        range_query_output.place(x = 50, y = 290)
+        
         range_query_output_label = tk.Label(self, text="Output")
-        range_query_output_label.place(x = 90, y = 210)
+        range_query_output_label.place(x = 90, y = 260)
         
-        #///add scroll bar
+        #scrollbar
+        range_query_output_scrollbar = tk.Scrollbar(self)
+        range_query_output_scrollbar.place(x = 215, y = 290)
+        range_query_output_scrollbar.config(command=range_query_output.yview)
+        range_query_output.config(yscrollcommand=range_query_output_scrollbar.set)
+
+        #video length search button
+        video_length_search_button = tk.Button(self, text="Length")
+        video_length_search_button.config(height = 1, width = 6)
+        video_length_search_button.place(x = 50, y = 370)
+
+
+        #video physical size search button
+        video_length_search_button = tk.Button(self, text="Size")
+        video_length_search_button.config(height = 1, width = 4)
+        video_length_search_button.place(x = 150, y = 370)
+        
         
         
 
-        StatsButton2.config(height = 1, width = 10)
-        StatsButton2.place(x = 1, y = 1)
         
-        SearchButton2.config(heigh = 1, width = 10)
-        SearchButton2.place(x = 100, y = 1)
-
-        SettingsButton2.config(heigh = 1, width = 10)
-        SettingsButton2.place(x = 200, y = 1)
 
 
 
