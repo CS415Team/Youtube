@@ -81,19 +81,70 @@ class StatsFrame(tk.Frame):
         label = tk.Label(self, text="stats page")
         label.pack(side="top", fill="x", pady=10)
 
+        #tab buttons
         StatsButton1 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
-        SearchButton1 = tk.Button(self, text="Search", command=lambda: controller.show_frame("SearchFrame"))
-        SettingsButton1 = tk.Button(self, text="Settings", command=lambda: controller.show_frame("SettingsFrame"))    
-
-
         StatsButton1.config(height = 1, width = 10)
         StatsButton1.place(x = 1, y = 1)
         
-        SearchButton1.config(heigh = 1, width = 10)
+        SearchButton1 = tk.Button(self, text="Search", command=lambda: controller.show_frame("SearchFrame"))
+        SearchButton1.config(height = 1, width = 10)
         SearchButton1.place(x = 100, y = 1)
 
-        SettingsButton1.config(heigh = 1, width = 10)
+        SettingsButton1 = tk.Button(self, text="Settings", command=lambda: controller.show_frame("SettingsFrame"))    
+        SettingsButton1.config(height = 1, width = 10)
         SettingsButton1.place(x = 200, y = 1)
+
+        
+        #degree distribution **************************************************
+        
+        #main label
+        degree_distribution_label = tk.Label(self, text="Degree Distribution")
+        degree_distribution_label.place(x = 90, y = 50)
+
+        #in degree button
+        #//create button for just opening a matplotlib graph
+        in_degree_button = tk.Button(self, text="In Degree")    
+        in_degree_button.config(height = 1, width = 9)
+        in_degree_button.place(x = 60, y = 85)
+
+        #out degree button
+        out_degree_button = tk.Button(self, text="Out Degree")    
+        out_degree_button.config(height = 1, width = 10)
+        out_degree_button.place(x = 160, y = 85)
+
+        #average degree label
+        average_degree_label = tk.Label(self, text="average degree")
+        average_degree_label.place(x = 100, y = 120)
+
+
+        #average degree output box
+        average_degree_output = tk.Text(self,bd = 2, height = 1, width = 10)
+        average_degree_output.place(x = 110, y = 150)
+        
+        #maximum degree label
+        maximum_degree_label = tk.Label(self, text="maximum degree")
+        maximum_degree_label.place(x = 100, y = 190)
+
+        #maximum degree output box
+        maximum_degree_output = tk.Text(self,bd = 2, height = 1, width = 10)
+        maximum_degree_output.place(x = 110, y = 220)
+
+        #minimum degree label
+        minimum_degree_label = tk.Label(self, text="minimum degree")
+        minimum_degree_label.place(x = 100, y = 260)
+
+        #minimum degree output box
+        minimum_degree_output = tk.Text(self,bd = 2, height = 1, width = 10)
+        minimum_degree_output.place(x = 110, y = 290)
+        
+
+        #categorized statistics ***********************************************
+
+        #main label
+        categorized_statistics_label = tk.Label(self, text="Categorized Statistics")
+        categorized_statistics_label.place(x = 320, y = 50)
+
+        #///////not sure how to continue with this one yet, ask team/steve
 
 
 class SearchFrame(tk.Frame):
@@ -110,11 +161,11 @@ class SearchFrame(tk.Frame):
         StatsButton2.place(x = 1, y = 1)
        
         SearchButton2 = tk.Button(self, text="Search", command=lambda: controller.show_frame("SearchFrame"))
-        SearchButton2.config(heigh = 1, width = 10)
+        SearchButton2.config(height = 1, width = 10)
         SearchButton2.place(x = 100, y = 1)
         
         SettingsButton2 = tk.Button(self, text="Settings", command=lambda: controller.show_frame("SettingsFrame"))
-        SettingsButton2.config(heigh = 1, width = 10)
+        SettingsButton2.config(height = 1, width = 10)
         SettingsButton2.place(x = 200, y = 1)
 
 
@@ -164,8 +215,8 @@ class SearchFrame(tk.Frame):
         range_query_output = tk.Text(self,bd = 2, height = 4, width = 20)
         range_query_output.place(x = 50, y = 290)
         
-        range_query_output_label = tk.Label(self, text="Output")
-        range_query_output_label.place(x = 90, y = 260)
+        range_query_output_label = tk.Label(self, text="Output Range")
+        range_query_output_label.place(x = 75, y = 260)
         
         #scrollbar
         range_query_output_scrollbar = tk.Scrollbar(self)
@@ -185,9 +236,94 @@ class SearchFrame(tk.Frame):
         video_length_search_button.place(x = 150, y = 370)
         
         
+        #top k queries *******************************************************
+
+        #range query label
+        top_k_label = tk.Label(self, text="Top K search")
+        top_k_label.place(x = 300, y = 50)
+
+        #input for k value
+        top_k_value = tk.Entry(self, width = 4)
+        top_k_value.place(x = 320, y = 100)
+
+        top_k_value_label = tk.Label(self, text="K")
+        top_k_value_label.place(x = 335, y = 75)
+
+        #top k categories button
+        top_k_categories_button = tk.Button(self, text="Categories")
+        top_k_categories_button.config(height = 1, width = 10)
+        top_k_categories_button.place(x = 300, y = 135)
+
+        #top k ratings button
+        top_k_ratings_button = tk.Button(self, text="Ratings")
+        top_k_ratings_button.config(height = 1, width = 7)
+        top_k_ratings_button.place(x = 310, y = 170)
+
+        #top k popularity button
+        top_k_popularity_button = tk.Button(self, text="Popularity")
+        top_k_popularity_button.config(height = 1, width = 10)
+        top_k_popularity_button.place(x = 300, y = 205)
+
+        #range query output box
+        top_k_output = tk.Text(self,bd = 2, height = 4, width = 20)
+        top_k_output.place(x = 270, y = 290)
         
+        top_k_output_label = tk.Label(self, text="Output Top K")
+        top_k_output_label.place(x = 300, y = 260)
+        
+        #scrollbar
+        top_k_output_scrollbar = tk.Scrollbar(self)
+        top_k_output_scrollbar.place(x = 425, y = 290)
+        top_k_output_scrollbar.config(command=top_k_output.yview)
+        top_k_output.config(yscrollcommand=top_k_output_scrollbar.set)
+
+
+        #subgraph patterns**********************************************
+
+        #///////not sure how to continue with this one yet, ask team/steve
+
+        #subgraph patterns label
+        subgraph_patterns_label = tk.Label(self, text="Subgraph Patterns")
+        subgraph_patterns_label.place(x = 550, y = 50)
 
         
+        
+        
+        #pagerank **********************************************
+
+        #pagerank label
+        pagerank_label = tk.Label(self, text="PageRank")
+        pagerank_label.place(x = 810, y = 50)
+
+        #input for k value
+        pagerank_k_value = tk.Entry(self, width = 4)
+        pagerank_k_value.place(x = 820, y = 100)
+
+        pagerank_k_value_label = tk.Label(self, text="K")
+        pagerank_k_value_label.place(x = 835, y = 75)
+
+        #pagerank run button
+        pagerank_run_button = tk.Button(self, text="PageRank")
+        pagerank_run_button.config(height = 1, width = 8)
+        pagerank_run_button.place(x = 805, y = 135)
+
+        #pagerank output label
+        pagerank_output_label = tk.Label(self, text="PageRank Results")
+        pagerank_output_label.place(x = 785, y = 190)
+
+        #pagerank output box
+        pagerank_output = tk.Text(self,bd = 2, height = 4, width = 20)
+        pagerank_output.place(x = 780, y = 220)
+        
+        
+        
+        #scrollbar
+        pagerank_output_scrollbar = tk.Scrollbar(self)
+        pagerank_output_scrollbar.place(x = 935, y = 220)
+        pagerank_output_scrollbar.config(command=pagerank_output.yview)
+        pagerank_output.config(yscrollcommand=pagerank_output_scrollbar.set)
+
+
 
 
 
@@ -208,10 +344,10 @@ class SettingsFrame(tk.Frame):
         StatsButton3.config(height = 1, width = 10)
         StatsButton3.place(x = 1, y = 1)
         
-        SearchButton3.config(heigh = 1, width = 10)
+        SearchButton3.config(height = 1, width = 10)
         SearchButton3.place(x = 100, y = 1)
 
-        SettingsButton3.config(heigh = 1, width = 10)
+        SettingsButton3.config(height = 1, width = 10)
         SettingsButton3.place(x = 200, y = 1)
 
 
@@ -234,10 +370,9 @@ if __name__ == "__main__":
 
 #todo list
 
-#1. range queries: needs button, inputs for t1 and t2, 
-# as well as input text for category X, and output text box
-#2. top k inputs: needs input for k and a text box display, and button for enter
+ 
+
 #3. output text box for categorized statistics with labels
 #4. output text box for degree distribution with label
 #5. output box for pagerank list with label
-
+#6. subraph patterns in search page
