@@ -1,10 +1,15 @@
 import tkinter as tk
 #import psycopg2
-import os
+#import os
+#import sys
+import matplotlib.pyplot as plt 
 #from pexpect import pxssh
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import *
+from tkinter import ttk
+
+
 
 
 class mainwindow(tk.Tk):
@@ -52,32 +57,32 @@ class StatsFrame(tk.Frame):
 
         #tab buttons
         StatsButton1 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
-        StatsButton1.config(height = 1, width = 10)
+        StatsButton1.config(height = 1, width = 8)
         StatsButton1.place(x = 1, y = 1)
         
         RangeButton1 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
-        RangeButton1.config(height = 1, width = 10)
+        RangeButton1.config(height = 1, width = 8)
         RangeButton1.place(x = 100, y = 1)
 
         TopKButton1 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
-        TopKButton1.config(height = 1, width = 10)
+        TopKButton1.config(height = 1, width = 8)
         TopKButton1.place(x = 200, y = 1)
 
         SubgraphButton1 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
-        SubgraphButton1.config(height = 1, width = 10)
+        SubgraphButton1.config(height = 1, width = 8)
         SubgraphButton1.place(x = 300, y = 1)
 
         PageRankButton1 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
-        PageRankButton1.config(height = 1, width = 10)
+        PageRankButton1.config(height = 1, width = 8)
         PageRankButton1.place(x = 400, y = 1)
 
         #degree distribution frame
-        degree_distribution_frame = Frame(self, height=400, width=250, bd=2, relief=GROOVE)
+        degree_distribution_frame = Frame(self, height=400, width=400, bd=2, relief=GROOVE)
         degree_distribution_frame.place(x = 30, y = 45)
 
         #categorized statistics frame
-        categorized_statistics_frame = Frame(self, height=400, width=250, bd=2, relief=GROOVE)
-        categorized_statistics_frame.place(x = 310, y = 45)
+        categorized_statistics_frame = Frame(self, height=400, width=350, bd=2, relief=GROOVE)
+        categorized_statistics_frame.place(x = 560, y = 45)
 
         #average degree output box frame
         average_degree_frame = Frame(self, height=40, width=95, bd=2, relief=GROOVE)
@@ -107,13 +112,13 @@ class StatsFrame(tk.Frame):
             #launch matplotlib graph
 
         #in degree button
-        in_degree_button = tk.Button(self, text="In Degree",  command=lambda: in_degree_button())    
-        in_degree_button.config(height = 1, width = 9)
+        in_degree_button = tk.Button(self, text="In Degree",  command=lambda: in_degree_button_action())    
+        in_degree_button.config(height = 1, width = 8)
         in_degree_button.place(x = 60, y = 85)
 
         #out degree button
-        out_degree_button = tk.Button(self, text="Out Degree",  command=lambda: out_degree_button())    
-        out_degree_button.config(height = 1, width = 10)
+        out_degree_button = tk.Button(self, text="Out Degree",  command=lambda: out_degree_button_action())    
+        out_degree_button.config(height = 1, width = 8)
         out_degree_button.place(x = 160, y = 85)
 
         #average degree label
@@ -144,7 +149,164 @@ class StatsFrame(tk.Frame):
 
         #main label
         categorized_statistics_label = tk.Label(self, text="Categorized Statistics")
-        categorized_statistics_label.place(x = 350, y = 50)
+        categorized_statistics_label.place(x = 600, y = 50)
+
+
+        def plotmaker(type_plot):
+            if(type_plot == "age"):
+                x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
+                y = [6,7,8,9,10,11]
+                x = [1,2,3,4,5,6]
+                plt.bar(x, y, label="Age totals")
+                plt.xlabel('Video Age')
+                plt.ylabel('counts')
+                plt.xticks(x, x_names)
+                plt.title('Distribution of Video Age')
+            elif(type_plot == "category"):
+                x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
+                y = [6,7,8,9,10,11]
+                x = [1,2,3,4,5,6]
+                plt.bar(x, y, label="Category totals")
+                plt.xlabel('Categories')
+                plt.ylabel('counts')
+                plt.xticks(x, x_names)
+                plt.title('Distribution of Categories')
+            elif(type_plot == "length"):
+                x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
+                y = [6,7,8,9,10,11]
+                x = [1,2,3,4,5,6]
+                plt.bar(x, y, label="Length Totals")
+                plt.xlabel('Length')
+                plt.ylabel('counts')
+                plt.xticks(x, x_names)
+                plt.title('Distribution of Length')
+            elif(type_plot == "views"):
+                x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
+                y = [6,7,8,9,10,11]
+                x = [1,2,3,4,5,6]
+                plt.bar(x, y, label="View totals")
+                plt.xlabel('Views')
+                plt.ylabel('counts')
+                plt.xticks(x, x_names)
+                plt.title('Distribution of Views')
+            elif(type_plot == "rate"):
+                x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
+                y = [6,7,8,9,10,11]
+                x = [1,2,3,4,5,6]
+                plt.bar(x, y, label="Rate totals")
+                plt.xlabel('Rate')
+                plt.ylabel('counts')
+                plt.xticks(x, x_names)
+                plt.title("Distribution of Rate")
+            elif(type_plot == "ratings"):
+                x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
+                y = [6,7,8,9,10,11]
+                x = [1,2,3,4,5,6]
+                plt.bar(x, y, label="Ratings totals")
+                plt.xlabel('Ratings')
+                plt.ylabel('counts')
+                plt.xticks(x, x_names)
+                plt.title('Distribution of Ratings')
+            elif(type_plot == "comments"):
+                x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
+                y = [6,7,8,9,10,11]
+                x = [1,2,3,4,5,6]
+                plt.bar(x, y, label="Comments totals")
+                plt.xlabel('Comments')
+                plt.ylabel('counts')
+                plt.xticks(x, x_names)
+                plt.title('Distribution of Comments')
+
+            plt.legend()
+            plt.show()
+
+
+        def age_plot_button_action():
+            plotmaker("age")
+
+        def category_plot_button_action():
+            plotmaker("category")
+
+        def length_plot_button_action():
+            plotmaker("length")
+
+        def views_plot_button_action():
+            plotmaker("views")
+
+        def rate_plot_button_action():
+            plotmaker("rate")
+
+        def ratings_plot_button_action():
+            plotmaker("ratings")
+        
+        def comments_plot_button_action():
+            plotmaker("comments")
+
+
+        #Launch age plot label
+        launch_age_plot_label = tk.Label(self, text="Launch Age Plot            ->")
+        launch_age_plot_label.place(x = 575, y = 85)
+
+        #age plot button
+        age_plot_button = tk.Button(self, text="Age",  command=lambda: age_plot_button_action())    
+        age_plot_button.config(height = 1, width = 8)
+        age_plot_button.place(x = 750, y = 85)
+
+        #Launch category plot label
+        launch_category_plot_label = tk.Label(self, text="Launch Category Plot   ->")
+        launch_category_plot_label.place(x = 575, y = 115)
+
+        #category plot button
+        category_plot_button = tk.Button(self, text="Category",  command=lambda: category_plot_button_action())    
+        category_plot_button.config(height = 1, width = 8)
+        category_plot_button.place(x = 750, y = 115)
+
+        #Launch length plot label
+        launch_length_plot_label = tk.Label(self, text="Launch length Plot        ->")
+        launch_length_plot_label.place(x = 575, y = 145)
+
+        #length plot button
+        length_plot_button = tk.Button(self, text="Length",  command=lambda: length_plot_button_action())    
+        length_plot_button.config(height = 1, width = 8)
+        length_plot_button.place(x = 750, y = 145)
+
+        #Launch views plot label
+        launch_views_plot_label = tk.Label(self, text="Launch Views Plot         ->")
+        launch_views_plot_label.place(x = 575, y = 175)
+
+        #views plot button
+        views_plot_button = tk.Button(self, text="Views",  command=lambda: views_plot_button_action())    
+        views_plot_button.config(height = 1, width = 8)
+        views_plot_button.place(x = 750, y = 175)
+
+        #Launch rate plot label
+        launch_rate_plot_label = tk.Label(self, text="Launch Rate Plot           ->")
+        launch_rate_plot_label.place(x = 575, y = 205)
+
+        #rate plot button
+        rate_plot_button = tk.Button(self, text="Rate",  command=lambda: rate_plot_button_action())    
+        rate_plot_button.config(height = 1, width = 8)
+        rate_plot_button.place(x = 750, y = 205)
+
+        #Launch ratings plot label
+        launch_ratings_plot_label = tk.Label(self, text="Launch Ratings Plot      ->")
+        launch_ratings_plot_label.place(x = 575, y = 235)
+
+        #ratings plot button
+        ratings_plot_button = tk.Button(self, text="Ratings",  command=lambda: ratings_plot_button_action())    
+        ratings_plot_button.config(height = 1, width = 8)
+        ratings_plot_button.place(x = 750, y = 235)
+
+        #Launch comments plot label
+        launch_comments_plot_label = tk.Label(self, text="Launch Comments Plot ->")
+        launch_comments_plot_label.place(x = 575, y = 265)
+
+        #comments plot button
+        comments_plot_button = tk.Button(self, text="Comments",  command=lambda: comments_plot_button_action())    
+        comments_plot_button.config(height = 1, width = 8)
+        comments_plot_button.place(x = 750, y = 265)
+
+
 
         #///////not sure how to continue with this one yet, ask team/steve
 
@@ -161,23 +323,23 @@ class RangeFrame(tk.Frame):
 
         #tab buttons
         StatsButton2 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
-        StatsButton2.config(height = 1, width = 10)
+        StatsButton2.config(height = 1, width = 8)
         StatsButton2.place(x = 1, y = 1)
         
         RangeButton2 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
-        RangeButton2.config(height = 1, width = 10)
+        RangeButton2.config(height = 1, width = 8)
         RangeButton2.place(x = 100, y = 1)
 
         TopKButton2 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
-        TopKButton2.config(height = 1, width = 10)
+        TopKButton2.config(height = 1, width = 8)
         TopKButton2.place(x = 200, y = 1)
 
         SubgraphButton2 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
-        SubgraphButton2.config(height = 1, width = 10)
+        SubgraphButton2.config(height = 1, width = 8)
         SubgraphButton2.place(x = 300, y = 1)
 
         PageRankButton2 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
-        PageRankButton2.config(height = 1, width = 10)
+        PageRankButton2.config(height = 1, width = 8)
         PageRankButton2.place(x = 400, y = 1)
 
         #range query frame
@@ -268,23 +430,23 @@ class TopKFrame(tk.Frame):
 
         #tab buttons
         StatsButton3 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
-        StatsButton3.config(height = 1, width = 10)
+        StatsButton3.config(height = 1, width = 8)
         StatsButton3.place(x = 1, y = 1)
         
         RangeButton3 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
-        RangeButton3.config(height = 1, width = 10)
+        RangeButton3.config(height = 1, width = 8)
         RangeButton3.place(x = 100, y = 1)
 
         TopKButton3 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
-        TopKButton3.config(height = 1, width = 10)
+        TopKButton3.config(height = 1, width = 8)
         TopKButton3.place(x = 200, y = 1)
 
         SubgraphButton3 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
-        SubgraphButton3.config(height = 1, width = 10)
+        SubgraphButton3.config(height = 1, width = 8)
         SubgraphButton3.place(x = 300, y = 1)
 
         PageRankButton3 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
-        PageRankButton3.config(height = 1, width = 10)
+        PageRankButton3.config(height = 1, width = 8)
         PageRankButton3.place(x = 400, y = 1)
 
         #top k query frame
@@ -349,23 +511,23 @@ class SubgraphFrame(tk.Frame):
 
         #tab buttons
         StatsButton4 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
-        StatsButton4.config(height = 1, width = 10)
+        StatsButton4.config(height = 1, width = 8)
         StatsButton4.place(x = 1, y = 1)
         
         RangeButton4 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
-        RangeButton4.config(height = 1, width = 10)
+        RangeButton4.config(height = 1, width = 8)
         RangeButton4.place(x = 100, y = 1)
 
         TopKButton4 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
-        TopKButton4.config(height = 1, width = 10)
+        TopKButton4.config(height = 1, width = 8)
         TopKButton4.place(x = 200, y = 1)
 
         SubgraphButton4 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
-        SubgraphButton4.config(height = 1, width = 10)
+        SubgraphButton4.config(height = 1, width = 8)
         SubgraphButton4.place(x = 300, y = 1)
 
         PageRankButton4 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
-        PageRankButton4.config(height = 1, width = 10)
+        PageRankButton4.config(height = 1, width = 8)
         PageRankButton4.place(x = 400, y = 1)
 
         #///////not sure how to continue with this one yet, ask team/steve
@@ -388,23 +550,23 @@ class PageRankFrame(tk.Frame):
 
         #tab buttons
         StatsButton5 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
-        StatsButton5.config(height = 1, width = 10)
+        StatsButton5.config(height = 1, width = 8)
         StatsButton5.place(x = 1, y = 1)
         
         RangeButton5 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
-        RangeButton5.config(height = 1, width = 10)
+        RangeButton5.config(height = 1, width = 8)
         RangeButton5.place(x = 100, y = 1)
 
         TopKButton5 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
-        TopKButton5.config(height = 1, width = 10)
+        TopKButton5.config(height = 1, width = 8)
         TopKButton5.place(x = 200, y = 1)
 
         SubgraphButton5 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
-        SubgraphButton5.config(height = 1, width = 10)
+        SubgraphButton5.config(height = 1, width = 8)
         SubgraphButton5.place(x = 300, y = 1)
 
         PageRankButton5 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
-        PageRankButton5.config(height = 1, width = 10)
+        PageRankButton5.config(height = 1, width = 8)
         PageRankButton5.place(x = 400, y = 1)
 
         #pagerank query frame
