@@ -1,7 +1,7 @@
 import tkinter as tk
-import psycopg2
+#import psycopg2
 import os
-from pexpect import pxssh
+#from pexpect import pxssh
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import *
@@ -439,16 +439,9 @@ class PageRankFrame(tk.Frame):
         pagerank_output = tk.Text(self,bd = 2, height = 25, width = 40)
         pagerank_output.place(x = 360, y = 290)
 
-        
-
-       
-        
 if __name__ == "__main__":
     app = mainwindow()
     app.mainloop()
-
-
-
 
 #how im thinking of connecting to the databases.
 #hopefully if we get neo4j up and running on aws and is available to ssh into 
