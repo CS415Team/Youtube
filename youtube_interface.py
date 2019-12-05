@@ -10,8 +10,6 @@ from tkinter import *
 from tkinter import ttk
 
 
-
-
 class mainwindow(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
@@ -104,12 +102,27 @@ class StatsFrame(tk.Frame):
         degree_distribution_label.place(x = 90, y = 50)
 
         def in_degree_button_action():
-            pass
-            #launch matplotlib graph
-
+            x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
+            y = [6,7,8,9,10,11]
+            x = [1,2,3,4,5,6]
+            plt.bar(x, y, label="In Degree")
+            plt.xlabel('Video Age')
+            plt.ylabel('counts')
+            plt.xticks(x, x_names)
+            plt.title('In Degree Distribution')
+            plt.legend()
+            plt.show()
         def out_degree_button_action():
-            pass
-            #launch matplotlib graph
+            x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
+            y = [6,7,8,9,10,11]
+            x = [1,2,3,4,5,6]
+            plt.bar(x, y, label="Out Degree")
+            plt.xlabel('Video Age')
+            plt.ylabel('counts')
+            plt.xticks(x, x_names)
+            plt.title('Out Degree Distribution')
+            plt.legend()
+            plt.show()
 
         #in degree button
         in_degree_button = tk.Button(self, text="In Degree",  command=lambda: in_degree_button_action())    
@@ -150,6 +163,17 @@ class StatsFrame(tk.Frame):
         #main label
         categorized_statistics_label = tk.Label(self, text="Categorized Statistics")
         categorized_statistics_label.place(x = 600, y = 50)
+
+
+
+        #//thinking space
+        #heres how i think the stats should be calculated
+        #use mapreduce for counting and grouping by value. then use output for graphs
+
+
+
+
+
 
 
         def plotmaker(type_plot):
