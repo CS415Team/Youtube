@@ -36,9 +36,9 @@ class mainwindow(tk.Tk):
 
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame("StatsFrame")
+        self.display_frame("StatsFrame")
 
-    def show_frame(self, frame_name):
+    def display_frame(self, frame_name):
         frame = self.frames[frame_name]
         frame.tkraise()
 
@@ -47,30 +47,31 @@ class StatsFrame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.config(background='grey')
 
         #frame label
-        stats_frame_label = tk.Label(self, text="Statistics")
-        stats_frame_label.place(x=700, y=10)
+        stats_frame_label = tk.Label(self,background='grey', text="Statistics")
+        stats_frame_label.place(x=700, y=5)
         stats_frame_label.config(font=("Courier", 30))
 
         #tab buttons
-        StatsButton1 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
+        StatsButton1 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
         StatsButton1.config(height = 1, width = 8)
         StatsButton1.place(x = 1, y = 1)
         
-        RangeButton1 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
+        RangeButton1 = tk.Button(self, text="Range",highlightbackground='grey', command=lambda: controller.display_frame("RangeFrame"))
         RangeButton1.config(height = 1, width = 8)
         RangeButton1.place(x = 100, y = 1)
 
-        TopKButton1 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
+        TopKButton1 = tk.Button(self, text="Top K",highlightbackground='grey', command=lambda: controller.display_frame("TopKFrame"))    
         TopKButton1.config(height = 1, width = 8)
         TopKButton1.place(x = 200, y = 1)
 
-        SubgraphButton1 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
+        SubgraphButton1 = tk.Button(self, text="Subgraph",highlightbackground='grey', command=lambda: controller.display_frame("SubgraphFrame"))    
         SubgraphButton1.config(height = 1, width = 8)
         SubgraphButton1.place(x = 300, y = 1)
 
-        PageRankButton1 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
+        PageRankButton1 = tk.Button(self, text="PageRank",highlightbackground='grey', command=lambda: controller.display_frame("PageRankFrame"))    
         PageRankButton1.config(height = 1, width = 8)
         PageRankButton1.place(x = 400, y = 1)
 
@@ -84,22 +85,22 @@ class StatsFrame(tk.Frame):
 
         #average degree output box frame
         average_degree_frame = Frame(self, height=40, width=95, bd=2, relief=GROOVE)
-        average_degree_frame.place(x = 105, y = 145)
+        average_degree_frame.place(x = 145, y = 145)
 
         #maximum degree output box frame
         maximum_degree_frame = Frame(self, height=40, width=95, bd=2, relief=GROOVE)
-        maximum_degree_frame.place(x = 105, y = 215)
+        maximum_degree_frame.place(x = 145, y = 215)
 
         #minimum degree output box frame
         minimum_degree_frame = Frame(self, height=40, width=95, bd=2, relief=GROOVE)
-        minimum_degree_frame.place(x = 105, y = 285)
+        minimum_degree_frame.place(x = 145, y = 285)
 
 
         #degree distribution ******************************************************
         
         #main label
         degree_distribution_label = tk.Label(self, text="Degree Distribution")
-        degree_distribution_label.place(x = 90, y = 50)
+        degree_distribution_label.place(x = 130, y = 50)
 
         def in_degree_button_action():
             x_names = ['0-100','101-200','201-300','301-400','401-500','501-600']
@@ -127,54 +128,42 @@ class StatsFrame(tk.Frame):
         #in degree button
         in_degree_button = tk.Button(self, text="In Degree",  command=lambda: in_degree_button_action())    
         in_degree_button.config(height = 1, width = 8)
-        in_degree_button.place(x = 60, y = 85)
+        in_degree_button.place(x = 100, y = 85)
 
         #out degree button
         out_degree_button = tk.Button(self, text="Out Degree",  command=lambda: out_degree_button_action())    
         out_degree_button.config(height = 1, width = 8)
-        out_degree_button.place(x = 160, y = 85)
+        out_degree_button.place(x = 200, y = 85)
 
         #average degree label
         average_degree_label = tk.Label(self, text="average degree")
-        average_degree_label.place(x = 100, y = 120)
+        average_degree_label.place(x = 140, y = 120)
 
         #average degree output box
         average_degree_output = tk.Text(self,bd = 2, height = 1, width = 10)
-        average_degree_output.place(x = 110, y = 150)
+        average_degree_output.place(x = 150, y = 150)
         
         #maximum degree label
         maximum_degree_label = tk.Label(self, text="maximum degree")
-        maximum_degree_label.place(x = 100, y = 190)
+        maximum_degree_label.place(x = 140, y = 190)
 
         #maximum degree output box
         maximum_degree_output = tk.Text(self,bd = 2, height = 1, width = 10)
-        maximum_degree_output.place(x = 110, y = 220)
+        maximum_degree_output.place(x = 150, y = 220)
 
         #minimum degree label
         minimum_degree_label = tk.Label(self, text="minimum degree")
-        minimum_degree_label.place(x = 100, y = 260)
+        minimum_degree_label.place(x = 140, y = 260)
 
         #minimum degree output box
         minimum_degree_output = tk.Text(self,bd = 2, height = 1, width = 10)
-        minimum_degree_output.place(x = 110, y = 290)
+        minimum_degree_output.place(x = 150, y = 290)
         
         #categorized statistics ***************************************************
 
         #main label
         categorized_statistics_label = tk.Label(self, text="Categorized Statistics")
-        categorized_statistics_label.place(x = 600, y = 50)
-
-
-
-        #//thinking space
-        #heres how i think the stats should be calculated
-        #use mapreduce for counting and grouping by value. then use output for graphs
-
-
-
-
-
-
+        categorized_statistics_label.place(x = 650, y = 50)
 
         def plotmaker(type_plot):
             if(type_plot == "age"):
@@ -244,7 +233,6 @@ class StatsFrame(tk.Frame):
             plt.legend()
             plt.show()
 
-
         def age_plot_button_action():
             plotmaker("age")
 
@@ -265,7 +253,6 @@ class StatsFrame(tk.Frame):
         
         def comments_plot_button_action():
             plotmaker("comments")
-
 
         #Launch age plot label
         launch_age_plot_label = tk.Label(self, text="Launch Age Plot            ->")
@@ -331,38 +318,35 @@ class StatsFrame(tk.Frame):
         comments_plot_button.place(x = 750, y = 265)
 
 
-
-        #///////not sure how to continue with this one yet, ask team/steve
-
-
 class RangeFrame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.config(background='grey')
 
         #frame label
-        Range_frame_label = tk.Label(self, text="Range Search")
-        Range_frame_label.place(x=700, y=10)
+        Range_frame_label = tk.Label(self,background='grey', text="Range Search")
+        Range_frame_label.place(x=700, y=5)
         Range_frame_label.config(font=("Courier", 30))
 
         #tab buttons
-        StatsButton2 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
+        StatsButton2 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
         StatsButton2.config(height = 1, width = 8)
         StatsButton2.place(x = 1, y = 1)
         
-        RangeButton2 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
+        RangeButton2 = tk.Button(self, text="Range",highlightbackground='grey', command=lambda: controller.display_frame("RangeFrame"))
         RangeButton2.config(height = 1, width = 8)
         RangeButton2.place(x = 100, y = 1)
 
-        TopKButton2 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
+        TopKButton2 = tk.Button(self, text="Top K",highlightbackground='grey', command=lambda: controller.display_frame("TopKFrame"))    
         TopKButton2.config(height = 1, width = 8)
         TopKButton2.place(x = 200, y = 1)
 
-        SubgraphButton2 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
+        SubgraphButton2 = tk.Button(self, text="Subgraph",highlightbackground='grey', command=lambda: controller.display_frame("SubgraphFrame"))    
         SubgraphButton2.config(height = 1, width = 8)
         SubgraphButton2.place(x = 300, y = 1)
 
-        PageRankButton2 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
+        PageRankButton2 = tk.Button(self, text="PageRank",highlightbackground='grey', command=lambda: controller.display_frame("PageRankFrame"))    
         PageRankButton2.config(height = 1, width = 8)
         PageRankButton2.place(x = 400, y = 1)
 
@@ -437,8 +421,8 @@ class RangeFrame(tk.Frame):
 
         #video physical size search button
         video_size_search_button = tk.Button(self, text="Size", command=lambda: video_size_search_button_action())
-        video_size_search_button.config(height = 1, width = 4)
-        video_size_search_button.place(x = 590, y = 700)
+        video_size_search_button.config(height = 1, width = 6)
+        video_size_search_button.place(x = 570, y = 700)
         
 
 class TopKFrame(tk.Frame):
@@ -446,30 +430,31 @@ class TopKFrame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.config(background='grey')
         
         #frame label
-        top_k_frame_label = tk.Label(self, text="Top K Search")
-        top_k_frame_label.place(x=700, y=10)
+        top_k_frame_label = tk.Label(self,background='grey', text="Top K Search")
+        top_k_frame_label.place(x=700, y=5)
         top_k_frame_label.config(font=("Courier", 30))
 
         #tab buttons
-        StatsButton3 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
+        StatsButton3 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
         StatsButton3.config(height = 1, width = 8)
         StatsButton3.place(x = 1, y = 1)
         
-        RangeButton3 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
+        RangeButton3 = tk.Button(self, text="Range",highlightbackground='grey', command=lambda: controller.display_frame("RangeFrame"))
         RangeButton3.config(height = 1, width = 8)
         RangeButton3.place(x = 100, y = 1)
 
-        TopKButton3 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
+        TopKButton3 = tk.Button(self, text="Top K",highlightbackground='grey', command=lambda: controller.display_frame("TopKFrame"))    
         TopKButton3.config(height = 1, width = 8)
         TopKButton3.place(x = 200, y = 1)
 
-        SubgraphButton3 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
+        SubgraphButton3 = tk.Button(self, text="Subgraph",highlightbackground='grey', command=lambda: controller.display_frame("SubgraphFrame"))    
         SubgraphButton3.config(height = 1, width = 8)
         SubgraphButton3.place(x = 300, y = 1)
 
-        PageRankButton3 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
+        PageRankButton3 = tk.Button(self, text="PageRank",highlightbackground='grey', command=lambda: controller.display_frame("PageRankFrame"))    
         PageRankButton3.config(height = 1, width = 8)
         PageRankButton3.place(x = 400, y = 1)
 
@@ -500,20 +485,20 @@ class TopKFrame(tk.Frame):
 
         #top k categories button
         top_k_categories_button = tk.Button(self, text="Categories", command=lambda: top_k_categories_button_action())
-        top_k_categories_button.config(height = 1, width = 10)
+        top_k_categories_button.config(height = 1, width = 7)
         top_k_categories_button.place(x = 465, y = 135)
 
         #top k ratings button
         top_k_ratings_button = tk.Button(self, text="Ratings", command=lambda: top_k_ratings_button_action())
         top_k_ratings_button.config(height = 1, width = 7)
-        top_k_ratings_button.place(x = 475, y = 170)
+        top_k_ratings_button.place(x = 465, y = 170)
 
         #top k popularity button
         top_k_popularity_button = tk.Button(self, text="Popularity", command=lambda: top_k_popularity_button_action())
-        top_k_popularity_button.config(height = 1, width = 10)
+        top_k_popularity_button.config(height = 1, width = 7)
         top_k_popularity_button.place(x = 465, y = 205)
 
-        #top k  query output box label
+        #top k query output box label
         top_k_output_label = tk.Label(self, text="Output Top K")
         top_k_output_label.place(x = 460, y = 260)
 
@@ -527,30 +512,31 @@ class SubgraphFrame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.config(background='grey')
         
         #frame label
-        subgraph_frame_label = tk.Label(self, text="Subgraph")
-        subgraph_frame_label.place(x=700, y=10)
+        subgraph_frame_label = tk.Label(self,background='grey', text="Subgraph")
+        subgraph_frame_label.place(x=700, y=5)
         subgraph_frame_label.config(font=("Courier", 30))
 
         #tab buttons
-        StatsButton4 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
+        StatsButton4 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
         StatsButton4.config(height = 1, width = 8)
         StatsButton4.place(x = 1, y = 1)
         
-        RangeButton4 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
+        RangeButton4 = tk.Button(self, text="Range",highlightbackground='grey', command=lambda: controller.display_frame("RangeFrame"))
         RangeButton4.config(height = 1, width = 8)
         RangeButton4.place(x = 100, y = 1)
 
-        TopKButton4 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
+        TopKButton4 = tk.Button(self, text="Top K",highlightbackground='grey', command=lambda: controller.display_frame("TopKFrame"))    
         TopKButton4.config(height = 1, width = 8)
         TopKButton4.place(x = 200, y = 1)
 
-        SubgraphButton4 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
+        SubgraphButton4 = tk.Button(self, text="Subgraph",highlightbackground='grey', command=lambda: controller.display_frame("SubgraphFrame"))    
         SubgraphButton4.config(height = 1, width = 8)
         SubgraphButton4.place(x = 300, y = 1)
 
-        PageRankButton4 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
+        PageRankButton4 = tk.Button(self, text="PageRank",highlightbackground='grey', command=lambda: controller.display_frame("PageRankFrame"))    
         PageRankButton4.config(height = 1, width = 8)
         PageRankButton4.place(x = 400, y = 1)
 
@@ -566,30 +552,31 @@ class PageRankFrame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.config(background='grey')
         
         #frame label
-        PageRank_frame_label = tk.Label(self, text="PageRank")
-        PageRank_frame_label.place(x=700, y=10)
+        PageRank_frame_label = tk.Label(self,background='grey', text="PageRank")
+        PageRank_frame_label.place(x=700, y=5)
         PageRank_frame_label.config(font=("Courier", 30))
 
         #tab buttons
-        StatsButton5 = tk.Button(self, text="Stats", command=lambda: controller.show_frame("StatsFrame"))
+        StatsButton5 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
         StatsButton5.config(height = 1, width = 8)
         StatsButton5.place(x = 1, y = 1)
         
-        RangeButton5 = tk.Button(self, text="Range", command=lambda: controller.show_frame("RangeFrame"))
+        RangeButton5 = tk.Button(self, text="Range",highlightbackground='grey', command=lambda: controller.display_frame("RangeFrame"))
         RangeButton5.config(height = 1, width = 8)
         RangeButton5.place(x = 100, y = 1)
 
-        TopKButton5 = tk.Button(self, text="Top K", command=lambda: controller.show_frame("TopKFrame"))    
+        TopKButton5 = tk.Button(self, text="Top K",highlightbackground='grey', command=lambda: controller.display_frame("TopKFrame"))    
         TopKButton5.config(height = 1, width = 8)
         TopKButton5.place(x = 200, y = 1)
 
-        SubgraphButton5 = tk.Button(self, text="Subgraph", command=lambda: controller.show_frame("SubgraphFrame"))    
+        SubgraphButton5 = tk.Button(self, text="Subgraph",highlightbackground='grey', command=lambda: controller.display_frame("SubgraphFrame"))    
         SubgraphButton5.config(height = 1, width = 8)
         SubgraphButton5.place(x = 300, y = 1)
 
-        PageRankButton5 = tk.Button(self, text="PageRank", command=lambda: controller.show_frame("PageRankFrame"))    
+        PageRankButton5 = tk.Button(self, text="PageRank",highlightbackground='grey', command=lambda: controller.display_frame("PageRankFrame"))    
         PageRankButton5.config(height = 1, width = 8)
         PageRankButton5.place(x = 400, y = 1)
 
@@ -615,7 +602,7 @@ class PageRankFrame(tk.Frame):
         #pagerank button
         pagerank_button = tk.Button(self, text="Pagerank", command=lambda: pagerank_button_action())
         pagerank_button.config(height = 1, width = 7)
-        pagerank_button.place(x = 475, y = 170)
+        pagerank_button.place(x = 465, y = 170)
 
         #pagerank query output box label
         pagerank_output_label = tk.Label(self, text="Output Pagerank")
@@ -639,11 +626,3 @@ if __name__ == "__main__":
 #github pexpect https://github.com/pexpect/pexpect
 
 
-#todo list
-
- 
-
-#3. output text box for categorized statistics with labels
-#4. output text box for degree distribution with label
-
-#6. subraph patterns in search page
