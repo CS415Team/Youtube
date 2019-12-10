@@ -27,10 +27,10 @@ class mainwindow(tk.Tk):
 
         self.frames = {}
 
-        for Fr in (StatsFrame, RangeFrame, TopKFrame, SubgraphFrame, PageRankFrame):
-            frame_name = Fr.__name__
+        for frame_option in (StatsFrame, RangeFrame, TopKFrame, SubgraphFrame, PageRankFrame):
+            frame_name = frame_option.__name__
             
-            frame = Fr(parent=container, controller=self)
+            frame = frame_option(parent=container, controller=self)
             
             self.frames[frame_name] = frame
 
