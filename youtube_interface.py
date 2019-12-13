@@ -3,7 +3,7 @@ import tkinter as tk
 #import os
 #import sys
 import matplotlib.pyplot as plt 
-#from pexpect import pxssh
+from pexpect import pxssh
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import *
@@ -18,6 +18,22 @@ class mainwindow(tk.Tk):
         self.title('Youtube Analyzer')    #set title
         self.geometry("1000x800")         #set the size
         self.resizable(0, 0)              #fix the size
+
+        global rds_connection
+        global graph_connection
+
+        #test 
+        rds_connection = 0
+        graph_connection = 0
+
+        #ssh setup
+
+        #ssh_conn = pxssh.pxssh()
+        #hostname = raw_input('')
+        #username = 
+
+
+
 
         #initial window setup
         container = tk.Frame(self)
@@ -53,6 +69,20 @@ class StatsFrame(tk.Frame):
         stats_frame_label = tk.Label(self,background='grey', text="Statistics")
         stats_frame_label.place(x=700, y=5)
         stats_frame_label.config(font=("Courier", 30))
+
+        #RDS connection status label
+        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
+        rds_connection_status_label.place(x=250, y=750)
+        rds_connection_status_label.config(font=("Courier", 15))
+        if(rds_connection == 1):
+            rds_connection_status_label.config(text='RDS - Connected')
+
+        #Graph connection status label
+        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
+        graph_connection_status_label.place(x=650, y=750)
+        graph_connection_status_label.config(font=("Courier", 15))
+        if(graph_connection == 1):
+            graph_connection_status_label.config(text='Graph - Connected')
 
         #tab buttons
         StatsButton1 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
@@ -329,6 +359,20 @@ class RangeFrame(tk.Frame):
         Range_frame_label.place(x=700, y=5)
         Range_frame_label.config(font=("Courier", 30))
 
+        #RDS connection status label
+        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
+        rds_connection_status_label.place(x=250, y=750)
+        rds_connection_status_label.config(font=("Courier", 15))
+        if(rds_connection == 1):
+            rds_connection_status_label.config(text='RDS - Connected')
+
+        #Graph connection status label
+        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
+        graph_connection_status_label.place(x=650, y=750)
+        graph_connection_status_label.config(font=("Courier", 15))
+        if(graph_connection == 1):
+            graph_connection_status_label.config(text='Graph - Connected')
+
         #tab buttons
         StatsButton2 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
         StatsButton2.config(height = 1, width = 8)
@@ -437,6 +481,20 @@ class TopKFrame(tk.Frame):
         top_k_frame_label.place(x=700, y=5)
         top_k_frame_label.config(font=("Courier", 30))
 
+        #RDS connection status label
+        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
+        rds_connection_status_label.place(x=250, y=750)
+        rds_connection_status_label.config(font=("Courier", 15))
+        if(rds_connection == 1):
+            rds_connection_status_label.config(text='RDS - Connected')
+
+        #Graph connection status label
+        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
+        graph_connection_status_label.place(x=650, y=750)
+        graph_connection_status_label.config(font=("Courier", 15))
+        if(graph_connection == 1):
+            graph_connection_status_label.config(text='Graph - Connected')
+
         #tab buttons
         StatsButton3 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
         StatsButton3.config(height = 1, width = 8)
@@ -519,6 +577,20 @@ class SubgraphFrame(tk.Frame):
         subgraph_frame_label.place(x=700, y=5)
         subgraph_frame_label.config(font=("Courier", 30))
 
+        #RDS connection status label
+        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
+        rds_connection_status_label.place(x=250, y=750)
+        rds_connection_status_label.config(font=("Courier", 15))
+        if(rds_connection == 1):
+            rds_connection_status_label.config(text='RDS - Connected')
+
+        #Graph connection status label
+        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
+        graph_connection_status_label.place(x=650, y=750)
+        graph_connection_status_label.config(font=("Courier", 15))
+        if(graph_connection == 1):
+            graph_connection_status_label.config(text='Graph - Connected')
+
         #tab buttons
         StatsButton4 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
         StatsButton4.config(height = 1, width = 8)
@@ -558,6 +630,20 @@ class PageRankFrame(tk.Frame):
         PageRank_frame_label = tk.Label(self,background='grey', text="PageRank")
         PageRank_frame_label.place(x=700, y=5)
         PageRank_frame_label.config(font=("Courier", 30))
+
+        #RDS connection status label
+        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
+        rds_connection_status_label.place(x=250, y=750)
+        rds_connection_status_label.config(font=("Courier", 15))
+        if(rds_connection == 1):
+            rds_connection_status_label.config(text='RDS - Connected')
+
+        #Graph connection status label
+        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
+        graph_connection_status_label.place(x=650, y=750)
+        graph_connection_status_label.config(font=("Courier", 15))
+        if(graph_connection == 1):
+            graph_connection_status_label.config(text='Graph - Connected')
 
         #tab buttons
         StatsButton5 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
