@@ -1,0 +1,47 @@
+
+
+//INSERTING ACTUAL VIDEO NODE
+
+CREATE CONSTRAINT ON (v:Video) ASSERT v.id is UNIQUE;
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///whole_all_header_dr.csv' AS line
+
+CREATE (video:Video {id: line.videoID})
+
+
+
+
+//RELATIONSHIP 
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM
+'file:///new_whole_all_rel3.csv' AS line
+MATCH (video1:Video {id:line.videoID}), (video2:Video {id:line.related3})
+MERGE (video1)-[:thirdrelated]->(video2)
+;
+
+
+//PageRank
+CALL algo.pageRank.stream('Video', NULL, {iterations:20, dampingFactor:0.85})
+YIELD nodeId, score
+RETURN algo.asNode(node.nodeId).id AS page, score
+ORDER BY score DESC LIMIT 5
+;
+
+
+//IN of specific
+MATCH (video:Video {id:""})<-[r]-(video1:Video)
+RETURN video.id, r, video1 AS out LIMIT 50
+;
+
+//OUT of specific
+MATCH (video:Video {id:""})-[r]->(video1:Video)
+RETURN video.id, r, video1 AS out LIMIT 50
+;
+
+
+//Average in degree of all nodes
+MATCH (video:Video)<-[r]-(video1:Video)
+WITH count(r) as num
+RETURN avg(num)
