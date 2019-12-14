@@ -1,4 +1,6 @@
 import tkinter as tk
+import numpy as np
+import neo4j
 #import psycopg2
 #import os
 #import sys
@@ -8,6 +10,8 @@ from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import *
 from tkinter import ttk
+from neo4j import GraphDatabase 
+
 
 
 class mainwindow(tk.Tk):
@@ -31,8 +35,10 @@ class mainwindow(tk.Tk):
         #ssh_conn = pxssh.pxssh()
         #hostname = raw_input('')
         #username = 
+ 
 
 
+        
 
 
         #initial window setup
@@ -70,19 +76,7 @@ class StatsFrame(tk.Frame):
         stats_frame_label.place(x=700, y=5)
         stats_frame_label.config(font=("Courier", 30))
 
-        #RDS connection status label
-        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
-        rds_connection_status_label.place(x=250, y=750)
-        rds_connection_status_label.config(font=("Courier", 15))
-        if(rds_connection == 1):
-            rds_connection_status_label.config(text='RDS - Connected')
 
-        #Graph connection status label
-        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
-        graph_connection_status_label.place(x=650, y=750)
-        graph_connection_status_label.config(font=("Courier", 15))
-        if(graph_connection == 1):
-            graph_connection_status_label.config(text='Graph - Connected')
 
         #tab buttons
         StatsButton1 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
@@ -116,7 +110,7 @@ class StatsFrame(tk.Frame):
         #average degree output box frame
         average_degree_frame = Frame(self, height=40, width=95, bd=2, relief=GROOVE)
         average_degree_frame.place(x = 145, y = 145)
-
+        
         #maximum degree output box frame
         maximum_degree_frame = Frame(self, height=40, width=95, bd=2, relief=GROOVE)
         maximum_degree_frame.place(x = 145, y = 215)
@@ -173,6 +167,24 @@ class StatsFrame(tk.Frame):
         average_degree_output = tk.Text(self,bd = 2, height = 1, width = 10)
         average_degree_output.place(x = 150, y = 150)
         
+        uri = "bolt://localhost:7687"
+        user = "neo4j"
+        passw = "cpts415"
+
+        _driver = GraphDatabase.driver(uri, auth=(user, passw))
+
+        #Average In Degree of all Videos
+        query2 = 'MATCH (video:Video)<-[r]-(video1:Video)\nWITH count(r) as num\nRETURN avg(num) as avgIN;'
+
+        with _driver.session() as session:
+            with session.begin_transaction() as tx:
+                results1 = (tx.run(query2))
+            session.close()
+
+        average_degree_output.delete(1.0, tk.END)
+        average_degree_output.insert(tk.END, results1)
+
+
         #maximum degree label
         maximum_degree_label = tk.Label(self, text="maximum degree")
         maximum_degree_label.place(x = 140, y = 190)
@@ -181,6 +193,23 @@ class StatsFrame(tk.Frame):
         maximum_degree_output = tk.Text(self,bd = 2, height = 1, width = 10)
         maximum_degree_output.place(x = 150, y = 220)
 
+        uri = "bolt://localhost:7687"
+        user = "neo4j"
+        passw = "cpts415"
+
+        _driver = GraphDatabase.driver(uri, auth=(user, passw))
+
+        #Max In Degree of all Videos
+        query3 = 'MATCH (video:Video)<-[r]-(video1:Video)\nWITH count(r) as num\nRETURN max(num) as maxIN;'
+
+        with _driver.session() as session:
+            with session.begin_transaction() as tx:
+                results2 = (tx.run(query3))
+            session.close()
+
+        maximum_degree_output.delete(1.0, tk.END)
+        maximum_degree_output.insert(tk.END, results2)
+
         #minimum degree label
         minimum_degree_label = tk.Label(self, text="minimum degree")
         minimum_degree_label.place(x = 140, y = 260)
@@ -188,6 +217,27 @@ class StatsFrame(tk.Frame):
         #minimum degree output box
         minimum_degree_output = tk.Text(self,bd = 2, height = 1, width = 10)
         minimum_degree_output.place(x = 150, y = 290)
+
+        uri = "bolt://localhost:7687"
+        user = "neo4j"
+        passw = "cpts415"
+
+        _driver = GraphDatabase.driver(uri, auth=(user, passw))
+
+        #Min In Degree of all Videos
+        query4 = 'MATCH (video:Video)<-[r]-(video1:Video)\nWITH count(r) as num\nRETURN min(num) as minIN;'
+
+        with _driver.session() as session:
+            with session.begin_transaction() as tx:
+                results4 = (tx.run(query4))
+            session.close()
+
+        minimum_degree_output.delete(1.0, tk.END)
+        minimum_degree_output.insert(tk.END, results4)
+
+        
+        
+
         
         #categorized statistics ***************************************************
 
@@ -359,19 +409,7 @@ class RangeFrame(tk.Frame):
         Range_frame_label.place(x=700, y=5)
         Range_frame_label.config(font=("Courier", 30))
 
-        #RDS connection status label
-        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
-        rds_connection_status_label.place(x=250, y=750)
-        rds_connection_status_label.config(font=("Courier", 15))
-        if(rds_connection == 1):
-            rds_connection_status_label.config(text='RDS - Connected')
 
-        #Graph connection status label
-        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
-        graph_connection_status_label.place(x=650, y=750)
-        graph_connection_status_label.config(font=("Courier", 15))
-        if(graph_connection == 1):
-            graph_connection_status_label.config(text='Graph - Connected')
 
         #tab buttons
         StatsButton2 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
@@ -481,19 +519,7 @@ class TopKFrame(tk.Frame):
         top_k_frame_label.place(x=700, y=5)
         top_k_frame_label.config(font=("Courier", 30))
 
-        #RDS connection status label
-        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
-        rds_connection_status_label.place(x=250, y=750)
-        rds_connection_status_label.config(font=("Courier", 15))
-        if(rds_connection == 1):
-            rds_connection_status_label.config(text='RDS - Connected')
 
-        #Graph connection status label
-        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
-        graph_connection_status_label.place(x=650, y=750)
-        graph_connection_status_label.config(font=("Courier", 15))
-        if(graph_connection == 1):
-            graph_connection_status_label.config(text='Graph - Connected')
 
         #tab buttons
         StatsButton3 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
@@ -577,19 +603,7 @@ class SubgraphFrame(tk.Frame):
         subgraph_frame_label.place(x=700, y=5)
         subgraph_frame_label.config(font=("Courier", 30))
 
-        #RDS connection status label
-        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
-        rds_connection_status_label.place(x=250, y=750)
-        rds_connection_status_label.config(font=("Courier", 15))
-        if(rds_connection == 1):
-            rds_connection_status_label.config(text='RDS - Connected')
 
-        #Graph connection status label
-        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
-        graph_connection_status_label.place(x=650, y=750)
-        graph_connection_status_label.config(font=("Courier", 15))
-        if(graph_connection == 1):
-            graph_connection_status_label.config(text='Graph - Connected')
 
         #tab buttons
         StatsButton4 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
@@ -631,19 +645,7 @@ class PageRankFrame(tk.Frame):
         PageRank_frame_label.place(x=700, y=5)
         PageRank_frame_label.config(font=("Courier", 30))
 
-        #RDS connection status label
-        rds_connection_status_label = tk.Label(self,background='grey', text="RDS - Not Connected")
-        rds_connection_status_label.place(x=250, y=750)
-        rds_connection_status_label.config(font=("Courier", 15))
-        if(rds_connection == 1):
-            rds_connection_status_label.config(text='RDS - Connected')
 
-        #Graph connection status label
-        graph_connection_status_label = tk.Label(self,background='grey', text="Graph - Not Connected")
-        graph_connection_status_label.place(x=650, y=750)
-        graph_connection_status_label.config(font=("Courier", 15))
-        if(graph_connection == 1):
-            graph_connection_status_label.config(text='Graph - Connected')
 
         #tab buttons
         StatsButton5 = tk.Button(self, text="Stats",highlightbackground='grey', command=lambda: controller.display_frame("StatsFrame"))
@@ -682,8 +684,45 @@ class PageRankFrame(tk.Frame):
         pagerank_value = tk.Entry(self, width = 4)
         pagerank_value.place(x = 485, y = 100)
 
+        #pagerank query output box
+        pagerank_output = tk.Text(self,bd = 2, height = 25, width = 40)
+        pagerank_output.place(x = 360, y = 290)
+
+
         def pagerank_button_action():
-            pass
+            uri = "bolt://localhost:7687"
+            user = "neo4j"
+            passw = "cpts415"
+
+            _driver = GraphDatabase.driver(uri, auth=(user, passw))
+
+            k = pagerank_value.get()
+            query1 = 'CALL algo.pageRank.stream(\'Video\', NULL, {iterations:20, dampingFactor:0.85})\nYIELD nodeId, score\nRETURN algo.asNode(nodeId).id AS page, score\nORDER BY score DESC LIMIT ' + k + ';'
+
+            with _driver.session() as session:
+                with session.begin_transaction() as tx:
+                    results = (tx.run(query1))
+                session.close()
+
+            col1 = []
+            col2 = []
+
+            for i in results:
+                col1.append(i[0])
+                col2.append(i[1])
+
+            col1 = np.array(col1)
+            col2 = np.array(col2)
+            l = col1.shape[0]
+        
+            col1 = col1.reshape((l,1))
+            col2 = col2.reshape((l,1))
+        
+            newdf = np.hstack((col1, col2))
+            pagerank_output.delete(1.0, tk.END)
+            pagerank_output.insert(tk.END, newdf)
+
+
 
         #pagerank button
         pagerank_button = tk.Button(self, text="Pagerank", command=lambda: pagerank_button_action())
@@ -694,9 +733,7 @@ class PageRankFrame(tk.Frame):
         pagerank_output_label = tk.Label(self, text="Output Pagerank")
         pagerank_output_label.place(x = 460, y = 260)
 
-        #pagerank query output box
-        pagerank_output = tk.Text(self,bd = 2, height = 25, width = 40)
-        pagerank_output.place(x = 360, y = 290)
+        
 
 if __name__ == "__main__":
     app = mainwindow()
